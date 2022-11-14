@@ -4,11 +4,8 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
 class SimpleGUI extends JFrame
 {
     Random rnd = new Random();
@@ -256,17 +253,78 @@ class SimpleGUI extends JFrame
     String[] select = {
             "First select Brands",
     };
+
+    String[] Country = {
+            "Select country",
+            "US",
+            "CA",
+            "AU",
+            "UK",
+            "EU France",
+            "EU Netherlands",
+            "EU Ireland",
+            "EU Singapore",
+            "EU Switzerland",
+            "Italy",
+    };
+    String[] testDATA = {
+            "Credit Cards",
+            "Mobile phone",
+            "Credit Card Number (Visa)",
+            "Credit Card Number (Visa) 3ds",
+            "Credit Card Number (MC)",
+            "Credit Card Number (Amex)",
+    };
+    String[] directDebitEU = {
+            "Direct Debit EU fr",
+            "CountryCode",
+            "IBAN",
+            "BIC",
+    };
+    String[] directDebitUK = {
+            "Direct Debit EU uk",
+            "CountryCode",
+            "BBAN",
+            "Bank/building society Sort Code",
+    };
+    String[] vat = {
+            "UserCred",
+            "rctu",
+            "2calls4me",
+            "Something",
+            "New",
+            "Bob",
+            "Morgan",
+            "VAT Number",
+    };
+    String[] salesAgent = {
+            "sales Agent",
+            "DEV-GWS-AMS",
+            "AMR-UP-AMS",
+            "PROD",
+            "SWT-UP-AMS",
+            "COOCIES_ON_PREPROD/PROD",
+    };
     private JComboBox<String> comboBox = new JComboBox<>(select);
     private JComboBox<String> comboBox2 = new JComboBox<>(Brands);
     private JComboBox<String> comboBox3 = new JComboBox<>(names);
+    private JComboBox<String> comboBox4 = new JComboBox<>(testDATA);
+    private JComboBox<String> comboBox5 = new JComboBox<>(Country);
+    private JComboBox<String> comboBox6 = new JComboBox<>(directDebitEU);
+    private JComboBox<String> comboBox7 = new JComboBox<>(directDebitUK);
+    private JComboBox<String> comboBox8 = new JComboBox<>(vat);
+    private JComboBox<String> comboBox9 = new JComboBox<>(salesAgent);
     private JButton button2 = new JButton("Generate unique stressmail");
     private JButton button3 = new JButton("Generate unique ab-soft");
     private JButton button = new JButton("Copy link");
     private JButton button4 = new JButton("Clear");
     private JButton button5 = new JButton("Logs ES copy link");
     private JButton button6 = new JButton("QA Tool copy link");
+    private JButton button7 = new JButton("Phone number");
+    private JButton button8 = new JButton("Street address");
+    private JButton button10 = new JButton("City");
+    private JButton button11 = new JButton("Zip code");
     private JTextField input = new JTextField("", 6);
-
     public SimpleGUI() {
         super("BuildLink");
         this.setBounds(100, 100, 900, 150);
@@ -274,11 +332,11 @@ class SimpleGUI extends JFrame
         button4.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 input.setText(null);
+                button4.setBackground(Color.pink);
             }
         });
-
         Container container = this.getContentPane();
-        container.setLayout(new GridLayout(2, 2, 3, 3));
+        container.setLayout(new GridLayout(4, 2, 3, 3));
         container.add(comboBox2);
         container.add(comboBox);
         container.add(button6);
@@ -289,16 +347,40 @@ class SimpleGUI extends JFrame
         container.add(button5);
         container.add(button3);
         container.add(button4);
+        container.add(comboBox5);
+        container.add(button7);
+        container.add(button8);
+        container.add(button10);
+        container.add(button11);
+        container.add(comboBox4);
+        container.add(comboBox6);
+        container.add(comboBox7);
+        container.add(comboBox8);
+        container.add(comboBox9);
         comboBox2.addActionListener(new Combo());
+        comboBox4.addActionListener(new Combo1());
+        comboBox4.setBackground(Color.lightGray);
+        comboBox6.addActionListener(new Combo2());
+        comboBox6.setBackground(Color.lightGray);
+        comboBox7.addActionListener(new Combo3());
+        comboBox7.setBackground(Color.lightGray);
+        comboBox8.addActionListener(new Combo4());
+        comboBox8.setBackground(Color.lightGray);
+        comboBox9.addActionListener(new Combo5());
+        comboBox9.setBackground(Color.lightGray);
         button.addActionListener(new ActtionButton());
         button2.addActionListener(new ButtonEventListener2 ());
         button3.addActionListener(new ButtonEventListener3 ());
         button6.addActionListener(new ButtonEventListener6 ());
         button5.addActionListener(new ButtonEventListener5 ());
+        button7.addActionListener(new ButtonEventListener7 ());
+        button8.addActionListener(new ButtonEventListener8 ());
+        button10.addActionListener(new ButtonEventListener9 ());
+        button11.addActionListener(new ButtonEventListener10 ());
     }
-
     class ActtionButton implements ActionListener {
         public void actionPerformed (ActionEvent e){
+            button.setBackground(Color.GREEN);
             if (input.getText().equals("")){  JOptionPane.showMessageDialog(null,"Please enter your ID","Error",JOptionPane.PLAIN_MESSAGE);
             }else {
                 String message2 = comboBox.getSelectedItem() + "/rc-web/confirmation/default.html?" + input.getText() + ":2BDE2472710882FD33156CA67B9E2E30";
@@ -317,6 +399,7 @@ class SimpleGUI extends JFrame
         @Override
         public void actionPerformed(ActionEvent e) {
             String brands = comboBox2.getSelectedItem().toString();
+
             switch (brands){
                 case "BT":
                     updateList(hostsBT);
@@ -393,6 +476,146 @@ class SimpleGUI extends JFrame
             }
         }
     }
+    class Combo5 implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            comboBox9.setBackground(Color.ORANGE);
+            String data = comboBox9.getSelectedItem().toString();
+            String mess = "";
+            switch (data){
+                case "DEV-GWS-AMS":
+                    mess = "https://service-devgwsams-us.secure.lab.nordigy.ru/salesagent_v5/signup/emulator-v2/rbs/";
+                    break;
+                case "AMR-UP-AMS":
+                    mess = "https://service-amrupams-us.secure.lab.nordigy.ru/salesagent_v5/signup/emulator-v2/";
+                    break;
+                case "PROD":
+                    mess = "https://secure.ringcentral.com/salesagent_v5/signup/emulator-v2/";
+                    break;
+                case "SWT-UP-AMS":
+                    mess = "https://service-swtupams-us.secure.lab.nordigy.ru/salesagent_v5/signup/emulator-v2/";
+                    break;
+                case "COOCIES_ON_PREPROD/PROD":
+                    mess = "(function(){document.cookie='cnvr_fcf_ignore_closed_sf_record=any;path=/;';})();";
+                    break;
+            }
+            StringSelection stringSelection = new StringSelection(mess);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+        }
+    }
+    class Combo1 implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            comboBox4.setBackground(Color.ORANGE);
+            String data = comboBox4.getSelectedItem().toString();
+            String mess = "";
+            switch (data){
+                case "Mobile phone":
+                    mess = "+78129363711";
+                    break;
+                case "Credit Card Number (Visa)":
+                    mess = "4111111111111111";
+                    break;
+                case "Credit Card Number (Visa) 3ds":
+                    mess = "4000 0000 0000 0044";
+                    break;
+                case "Credit Card Number (MC)":
+                    mess = "5555555555554444";
+                    break;
+                case "Credit Card Number (Amex)":
+                    mess = "378282246310005";
+                    break;
+            }
+            StringSelection stringSelection = new StringSelection(mess);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+        }
+    }
+    class Combo2 implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            comboBox6.setBackground(Color.ORANGE);
+            String data = comboBox6.getSelectedItem().toString();
+            String mess = "";
+            switch (data){
+                case "CountryCode":
+                    mess = "France";
+                    break;
+                case "IBAN":
+                    mess = "FR7610011000200012345678934";
+                    break;
+                case "BIC":
+                    mess = "PSSTFRPPCNE";
+                    break;
+            }
+            StringSelection stringSelection = new StringSelection(mess);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+        }
+    }
+    class Combo3 implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            comboBox7.setBackground(Color.ORANGE);
+            String data = comboBox7.getSelectedItem().toString();
+            String mess = "";
+            switch (data){
+                case "CountryCode":
+                    mess = "United Kingdom";
+                    break;
+                case "BBAN":
+                    mess = "34697856";
+                    break;
+                case "Bank/building society Sort Code":
+                    mess = "309136";
+                    break;
+            }
+            StringSelection stringSelection = new StringSelection(mess);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+        }
+    }
+
+    class Combo4 implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            comboBox8.setBackground(Color.ORANGE);
+            String data = comboBox8.getSelectedItem().toString();
+            String mess = "";
+            switch (data){
+                case "rctu":
+                    mess = "rctu";
+                    break;
+                case "2calls4me":
+                    mess = "2calls4me";
+                    break;
+                case "Something":
+                    mess = "Something";
+                    break;
+                case "New":
+                    mess = "New";
+                    break;
+                case "Bob":
+                    mess = "Bob";
+                    break;
+                case "Morgan":
+                    mess = "Morgan";
+                    break;
+                case "VAT Number":
+                    mess = "vatushka!";
+                    break;
+            }
+            StringSelection stringSelection = new StringSelection(mess);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+        }
+    }
 
     private void updateList(String[] items) {
         comboBox.removeAllItems();
@@ -400,6 +623,7 @@ class SimpleGUI extends JFrame
             comboBox.addItem(item);
         }
     }
+
     private void updateList2(String[] items2) {
         comboBox2.removeAllItems();
         for (String item2 : items2) {
@@ -411,6 +635,190 @@ class SimpleGUI extends JFrame
             int number = rnd.nextInt(99999999);
             String message2 = comboBox3.getSelectedItem() + "+" + number + "@stressmailams.lab.nordigy.ru";
             StringSelection stringSelection2 = new StringSelection(message2);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection2, null);
+
+        }
+    }
+
+    class ButtonEventListener7 implements ActionListener {
+        public void actionPerformed (ActionEvent e){
+            String message3 = "";
+            int number = rnd.nextInt(9999999);
+            int number2 = rnd.nextInt(99999999);
+            String country = comboBox5.getSelectedItem().toString();
+            switch (country) {
+                case "US":
+                    message3 = "1405" + number + "";
+                    break;
+                case "CA":
+                    message3 = "1506" + number + "";
+                    break;
+                case "UK":
+                    message3 = "4420" + number2 + "";
+                    break;
+                case "AU":
+                    message3 = "618" + number2 + "";
+                    break;
+                case "EU France":
+                    message3 = "331" + number2 + "";
+                    break;
+                case "EU Netherlands":
+                    message3 = "3115" + number2 + "";
+                    break;
+                case "EU Ireland":
+                    message3 = "3531" + number + "";
+                    break;
+                case "EU Singapore":
+                    message3 = "65" + number2 + "";
+                    break;
+                case "EU Switzerland":
+                    message3 = "4131" + number + "";
+                    break;
+                case "Italy":
+                    JOptionPane.showMessageDialog(null,"Italy not have number","Error",JOptionPane.PLAIN_MESSAGE);
+                    break;
+                case "Select country":
+                    JOptionPane.showMessageDialog(null,"Select country","Error",JOptionPane.PLAIN_MESSAGE);
+                    break;
+            }
+            StringSelection stringSelection2 = new StringSelection(message3);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection2, null);
+        }
+    }
+
+    class ButtonEventListener8 implements ActionListener {
+        public void actionPerformed (ActionEvent e){
+            String message4 = "";
+            String country = comboBox5.getSelectedItem().toString();
+            switch (country) {
+                case "US":
+                    message4 = "114 West Hefner Road";
+                    break;
+                case "CA":
+                    message4 = "44 Saint George Street";
+                    break;
+                case "UK":
+                    message4 = "16 North End Road";
+                    break;
+                case "AU":
+                    message4 = "23 Dampier Terrace";
+                    break;
+                case "EU France":
+                    message4 = "4 Boulevard Haussmann";
+                    break;
+                case "EU Netherlands":
+                    message4 = "6 Lindelaan";
+                    break;
+                case "EU Ireland":
+                    message4 = "125 Abbey Street Upper";
+                    break;
+                case "EU Singapore":
+                    message4 = "50 Raffles Place";
+                    break;
+                case "EU Switzerland":
+                    message4 = "Kappelergasse 1";
+                    break;
+                case "Italy":
+                    message4 = "Piazza Principe Umberto 119";
+                    break;
+                case "Select country":
+                    JOptionPane.showMessageDialog(null,"Select country","Error",JOptionPane.PLAIN_MESSAGE);
+                    break;
+            }
+            StringSelection stringSelection2 = new StringSelection(message4);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection2, null);
+        }
+    }
+
+    class ButtonEventListener10 implements ActionListener {
+        public void actionPerformed (ActionEvent e){
+            String message5 = "";
+            String country = comboBox5.getSelectedItem().toString();
+            switch (country) {
+                case "US":
+                    message5 = "73114";
+                    break;
+                case "CA":
+                    message5 = "E1C 1T1";
+                    break;
+                case "UK":
+                    message5 = "NW11 7PS";
+                    break;
+                case "AU":
+                    message5 = "6725";
+                    break;
+                case "EU France":
+                    message5 = "75009";
+                    break;
+                case "EU Netherlands":
+                    message5 = "2612 VK";
+                    break;
+                case "EU Ireland":
+                    message5 = "D01 W3X5";
+                    break;
+                case "EU Singapore":
+                    message5 = "048623";
+                    break;
+                case "EU Switzerland":
+                    message5 = "8022";
+                    break;
+                case "Italy":
+                    message5 = "50025";
+                    break;
+                case "Select country":
+                    JOptionPane.showMessageDialog(null,"Select country","Error",JOptionPane.PLAIN_MESSAGE);
+                    break;
+            }
+            StringSelection stringSelection2 = new StringSelection(message5);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection2, null);
+        }
+    }
+
+    class ButtonEventListener9 implements ActionListener {
+        public void actionPerformed (ActionEvent e){
+            String message5 = "";
+            String country = comboBox5.getSelectedItem().toString();
+            switch (country) {
+                case "US":
+                    message5 = "Oklahoma";
+                    break;
+                case "CA":
+                    message5 = "Moncton";
+                    break;
+                case "UK":
+                    message5 = "London";
+                    break;
+                case "AU":
+                    message5 = "Broome";
+                    break;
+                case "EU France":
+                    message5 = "Paris";
+                    break;
+                case "EU Netherlands":
+                    message5 = "Delft";
+                    break;
+                case "EU Ireland":
+                    message5 = "Dublin";
+                    break;
+                case "EU Singapore":
+                    message5 = "Singapore";
+                    break;
+                case "EU Switzerland":
+                    message5 = "Zurich";
+                    break;
+                case "Italy":
+                    message5 = "Montagnana Val Di Pesa";
+                    break;
+                case "Default phone":
+                case "Select country":
+                    JOptionPane.showMessageDialog(null,"Select country","Error",JOptionPane.PLAIN_MESSAGE);
+                    break;
+            }
+            StringSelection stringSelection2 = new StringSelection(message5);
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             clipboard.setContents(stringSelection2, null);
         }

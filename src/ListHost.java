@@ -66,7 +66,7 @@ public class ListHost {
 
     public String[] getHostAU() {
         return new String[]{
-                "https://secure.ringcentral.au",
+                "https://secure.ringcentral.com.au",
                 "https://secure-au01-ol.lab.nordigy.ru",
                 "https://service-devgwsams-au.secure.lab.nordigy.ru",
                 "https://service-amrupams-au.secure.lab.nordigy.ru",

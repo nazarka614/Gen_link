@@ -19,7 +19,7 @@ class SimpleGUI extends JFrame {
     private JComboBox<String> comboBox5 = new JComboBox<>(listData.getCountry());
     private JComboBox<String> comboBox6 = new JComboBox<>(listData.getDirectDebitEU());
     private JComboBox<String> comboBox7 = new JComboBox<>(listData.getDirectDebitUK());
-    private JComboBox<String> comboBox8 = new JComboBox<>(listData.getVat());
+    private JComboBox<String> comboBox8 = new JComboBox<>(listData.getInfoPages());
     private JComboBox<String> comboBox9 = new JComboBox<>(listData.getSalesAgent());
     private JComboBox<String> comboBox10 = new JComboBox<>(listEntry.getSelectPlan());
 
@@ -103,7 +103,9 @@ class SimpleGUI extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if (input.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please enter your ID", "Error", JOptionPane.PLAIN_MESSAGE);
-            } else {
+            }else if(comboBox2.getSelectedItem() == "Select brand"){
+                JOptionPane.showMessageDialog(null, "Please select Brand", "Error", JOptionPane.PLAIN_MESSAGE);
+            }else {
                 String message2 = comboBox.getSelectedItem() + "/rc-web/confirmation/default.html?" + input.getText() + ":2BDE2472710882FD33156CA67B9E2E30";
                 StringSelection stringSelection2 = new StringSelection(message2);
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -177,7 +179,14 @@ class SimpleGUI extends JFrame {
                         message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=1&plan=1&paidPackage=1952.2&trialPackage=101.1";
                     } else if (comboBox10.getSelectedItem().toString() == "Fax 1500") {
                         message = comboBox.getSelectedItem() + "/fax-v1.0/?offerType=0&plan=15";
-                    } else {
+                    }else if (comboBox10.getSelectedItem().toString() == "NGEX Paid") {
+                        message = comboBox.getSelectedItem() + "/mvp/?offerType=0&plan=1&paidPackage=1952.2";
+                    }else if (comboBox10.getSelectedItem().toString() == "NGEX Trial 14 days") {
+                        message = comboBox.getSelectedItem() + "/mvp/?offerType=1&plan=1&paidPackage=1952.2&trialPackage=101.1";
+                    }
+                    else if (comboBox10.getSelectedItem().toString() == "NGEX with devices") {
+                        message = comboBox.getSelectedItem() + "/mvp/?offerType=1&plan=1&apple=1&dv=1";
+                    }else {
                         JOptionPane.showMessageDialog(null, "Please select Plan", "Error", JOptionPane.PLAIN_MESSAGE);
                     }
                     break;
@@ -250,6 +259,9 @@ class SimpleGUI extends JFrame {
                 case "ATOS":
                 case "AVAYA":
                     JOptionPane.showMessageDialog(null, "Please use Sales agent from app", "Massage", JOptionPane.PLAIN_MESSAGE);
+                    break;
+                case "Select brand":
+                    JOptionPane.showMessageDialog(null, "Please select brand", "Error", JOptionPane.PLAIN_MESSAGE);
                     break;
             }
             StringSelection stringSelection = new StringSelection(message);
@@ -445,26 +457,38 @@ class SimpleGUI extends JFrame {
             String data = comboBox8.getSelectedItem().toString();
             String mess = "";
             switch (data) {
-                case "rctu":
-                    mess = "rctu";
+                case "List of funnels with entry points":
+                    mess = "https://wiki.ringcentral.com/display/OdessaTeam/List+of+funnels+with+entry+points";
                     break;
-                case "2calls4me":
-                    mess = "2calls4me";
+                case "Defect priority for Wizard team":
+                    mess = "https://wiki.ringcentral.com/display/OdessaTeam/Defect+priority+for+Wizard+team";
                     break;
-                case "Something":
-                    mess = "Something";
+                case "Master test plan":
+                    mess = "https://wiki.ringcentral.com/pages/viewpage.action?spaceKey=OdessaTeam&title=Master+test+plan";
                     break;
-                case "New":
-                    mess = "New";
+                case "Express Setup Feature List":
+                    mess = "https://wiki.ringcentral.com/pages/viewpage.action?spaceKey=OdessaTeam&title=Express+Setup+Feature+List";
                     break;
-                case "Bob":
-                    mess = "Bob";
+                case "AGS scenarios":
+                    mess = "https://wiki.ringcentral.com/pages/viewpage.action?spaceKey=XTO&title=The+latest+test+Accounts+in+XMN-UP";
                     break;
-                case "Morgan":
-                    mess = "Morgan";
+                case "Team statistics":
+                    mess = "https://jira.ringcentral.com/secure/Dashboard.jspa?selectPageId=23962";
                     break;
-                case "VAT Number":
-                    mess = "vatushka!";
+                case "How to SignUp ATT accounts":
+                    mess = "https://wiki.ringcentral.com/pages/viewpage.action?spaceKey=OPS&title=How+to+SignUp+ATT+accounts!";
+                    break;
+                case "Regression questions":
+                    mess = "https://jira.ringcentral.com/secure/Dashboard.jspa?selectPageId=29748!";
+                    break;
+                case "TestIT":
+                    mess = "https://testit.ringcentral.com/";
+                    break;
+                case "JSON SA":
+                    mess = "https://wiki.ringcentral.com/pages/viewpage.action?pageId=437380007";
+                    break;
+                case "Express Setup Flows":
+                    mess = "https://wiki.ringcentral.com/display/OdessaTeam/Express+Setup+Flows";
                     break;
             }
             StringSelection stringSelection = new StringSelection(mess);

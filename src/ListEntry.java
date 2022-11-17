@@ -13,6 +13,7 @@ public class ListEntry {
                 "Fax 1500",
                 "NGEX Paid",
                 "NGEX Trial 14 days",
+                "NGEX with devices",
         };
     }
     public String[] getPlanBrandCA() {

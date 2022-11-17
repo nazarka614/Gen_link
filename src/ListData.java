@@ -97,16 +97,20 @@ public class ListData{
                 "Bank/building society Sort Code",
         };
     }
-    public String[] getVat() {
+    public String[] getInfoPages() {
         return new String[]{
-                "UserCred",
-                "rctu",
-                "2calls4me",
-                "Something",
-                "New",
-                "Bob",
-                "Morgan",
-                "VAT Number",
+                "Select info pages",
+                "List of funnels with entry points",
+                "Defect priority for Wizard team",
+                "Master test plan",
+                "Express Setup Feature List",
+                "AGS scenarios",
+                "Team statistics",
+                "How to SignUp ATT accounts",
+                "Regression questions",
+                "TestIT",
+                "JSON SA",
+                "Express Setup Flows",
         };
     }
 }

@@ -4,7 +4,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 class SimpleGUI extends JFrame {
@@ -22,9 +22,7 @@ class SimpleGUI extends JFrame {
     private JComboBox<String> comboBox8 = new JComboBox<>(listData.getVat());
     private JComboBox<String> comboBox9 = new JComboBox<>(listData.getSalesAgent());
     private JComboBox<String> comboBox10 = new JComboBox<>(listEntry.getSelectPlan());
-    private JComboBox<String> comboBox11 = new JComboBox<>();
-    private JComboBox<String> comboBox13 = new JComboBox<>();
-    private JComboBox<String> comboBox14 = new JComboBox<>();
+
     private JButton button2 = new JButton("Generate unique stressmail");
     private JButton button3 = new JButton("Generate unique ab-soft");
     private JButton button = new JButton("Copy link");
@@ -40,41 +38,48 @@ class SimpleGUI extends JFrame {
 
     public SimpleGUI() {
         super("BuildLink");
-        this.setBounds(100, 100, 900, 150);
+        this.setBounds(100, 100, 1100, 250);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         button4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 input.setText(null);
-                button4.setBackground(Color.pink);
             }
         });
         Container container = this.getContentPane();
-        container.setLayout(new GridLayout(5, 2, 3, 3));
+        container.setLayout(new GridLayout(5, 2, 5, 6));
         container.add(comboBox2);
+        comboBox2.setBackground(Color.ORANGE);
         container.add(comboBox);
+        comboBox.setBackground(Color.ORANGE);
         container.add(button6);
         container.add(button2);
         container.add(comboBox3);
         container.add(input);
         container.add(button);
+        button.setBackground(Color.ORANGE);
         container.add(button5);
         container.add(button3);
         container.add(button4);
+        button4.setBackground(Color.pink);
         container.add(comboBox5);
         container.add(button7);
         container.add(button8);
         container.add(button10);
         container.add(button11);
         container.add(comboBox4);
+        comboBox4.setBackground(Color.LIGHT_GRAY);
         container.add(comboBox6);
+        comboBox6.setBackground(Color.LIGHT_GRAY);
         container.add(comboBox7);
+        comboBox7.setBackground(Color.LIGHT_GRAY);
         container.add(comboBox8);
+        comboBox8.setBackground(Color.LIGHT_GRAY);
         container.add(comboBox9);
+        comboBox9.setBackground(Color.LIGHT_GRAY);
         container.add(comboBox10);
+        comboBox10.setBackground(Color.ORANGE);
         container.add(button12);
-        container.add(comboBox11);
-        container.add(comboBox13);
-        container.add(comboBox14);
+        button12.setBackground(Color.ORANGE);
         comboBox2.addActionListener(new Combo());
         comboBox4.addActionListener(new Combo1());
         comboBox6.addActionListener(new Combo2());

@@ -101,12 +101,13 @@ class SimpleGUI extends JFrame {
 
     class ActtionButton implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+
             if (input.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please enter your ID", "Error", JOptionPane.PLAIN_MESSAGE);
             }else if(comboBox2.getSelectedItem() == "Select brand"){
                 JOptionPane.showMessageDialog(null, "Please select Brand", "Error", JOptionPane.PLAIN_MESSAGE);
             }else {
-                String message2 = comboBox.getSelectedItem() + "/rc-web/confirmation/default.html?" + input.getText() + ":2BDE2472710882FD33156CA67B9E2E30";
+                String message2 = comboBox.getSelectedItem() + "/rc-web/confirmation/default.html?" + input.getText().replaceAll(" ", "") + ":2BDE2472710882FD33156CA67B9E2E30";
                 StringSelection stringSelection2 = new StringSelection(message2);
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(stringSelection2, null);
@@ -527,6 +528,7 @@ class SimpleGUI extends JFrame {
             String message3 = "";
             int number = rnd.nextInt(9999999);
             int number2 = rnd.nextInt(99999999);
+            int number3 = rnd.nextInt(999999999);
             String country = comboBox5.getSelectedItem().toString();
             switch (country) {
                 case "US":
@@ -542,10 +544,10 @@ class SimpleGUI extends JFrame {
                     message3 = "618" + number2 + "";
                     break;
                 case "EU France":
-                    message3 = "331" + number2 + "";
+                    message3 = "331" + number3 + "";
                     break;
                 case "EU Netherlands":
-                    message3 = "3115" + number2 + "";
+                    message3 = "311" + number2 + "";
                     break;
                 case "EU Ireland":
                     message3 = "3531" + number + "";

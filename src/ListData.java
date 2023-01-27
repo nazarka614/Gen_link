@@ -7,7 +7,6 @@ public class ListData{
                 "AMR-UP-AMS",
                 "PROD",
                 "SWT-UP-AMS",
-                "COOCIES_ON_PREPROD/PROD",
         };
     }
 

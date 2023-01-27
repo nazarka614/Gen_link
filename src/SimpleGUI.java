@@ -5,6 +5,8 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 class SimpleGUI extends JFrame {
@@ -13,13 +15,13 @@ class SimpleGUI extends JFrame {
     ListHost listHost = new ListHost();
     ListEntry listEntry = new ListEntry();
     public JComboBox<String> comboBox = new JComboBox<>(listData.getlistSelect());
-    private JComboBox<String> comboBox2 = new JComboBox<>(listData.getBrands());
-    private JComboBox<String> comboBox3 = new JComboBox<>(listData.getNames());
+    private JComboBox<String> comboBox2 = new JComboBox<>(getSortList(listData.getBrands()));
+    private JComboBox<String> comboBox3 = new JComboBox<>(getSortList(listData.getNames()));
     private JComboBox<String> comboBox4 = new JComboBox<>(listData.getTestData());
-    private JComboBox<String> comboBox5 = new JComboBox<>(listData.getCountry());
+    private JComboBox<String> comboBox5 = new JComboBox<>(getSortList(listData.getCountry()));
     private JComboBox<String> comboBox6 = new JComboBox<>(listData.getDirectDebitEU());
     private JComboBox<String> comboBox7 = new JComboBox<>(listData.getDirectDebitUK());
-    private JComboBox<String> comboBox8 = new JComboBox<>(listData.getInfoPages());
+    private JComboBox<String> comboBox8 = new JComboBox<>(getSortList(listData.getInfoPages()));
     private JComboBox<String> comboBox9 = new JComboBox<>(listData.getSalesAgent());
     private JComboBox<String> comboBox10 = new JComboBox<>(listEntry.getSelectPlan());
 
@@ -35,6 +37,9 @@ class SimpleGUI extends JFrame {
     private JButton button11 = new JButton("Zip code");
     private JButton button12 = new JButton("Copy entry link");
     private JTextField input = new JTextField("", 6);
+    private JCheckBox checkBox = new JCheckBox("Cookies for valid number ATT SA", false);
+    private JCheckBox checkBox2 = new JCheckBox("Magic sales cookies for prod");
+    private JButton button120 = new JButton("Copy cookies");
 
     public SimpleGUI() {
         super("BuildLink");
@@ -80,6 +85,12 @@ class SimpleGUI extends JFrame {
         comboBox10.setBackground(Color.ORANGE);
         container.add(button12);
         button12.setBackground(Color.ORANGE);
+        ButtonGroup group = new ButtonGroup();
+        group.add(checkBox);
+        group.add(checkBox2);
+        container.add(checkBox);
+        container.add(checkBox2);
+        container.add(button120);
         comboBox2.addActionListener(new Combo());
         comboBox4.addActionListener(new Combo1());
         comboBox6.addActionListener(new Combo2());
@@ -97,6 +108,7 @@ class SimpleGUI extends JFrame {
         button10.addActionListener(new ButtonEventListener9());
         button11.addActionListener(new ButtonEventListener10());
         button12.addActionListener(new ButtonEventListener12());
+        button120.addActionListener(new ButtonEventListener777());
     }
 
     class ActtionButton implements ActionListener {
@@ -104,9 +116,9 @@ class SimpleGUI extends JFrame {
 
             if (input.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please enter your ID", "Error", JOptionPane.PLAIN_MESSAGE);
-            }else if(comboBox2.getSelectedItem() == "Select brand"){
+            } else if (comboBox2.getSelectedItem() == "Select brand") {
                 JOptionPane.showMessageDialog(null, "Please select Brand", "Error", JOptionPane.PLAIN_MESSAGE);
-            }else {
+            } else {
                 String message2 = comboBox.getSelectedItem() + "/rc-web/confirmation/default.html?" + input.getText().replaceAll(" ", "") + ":2BDE2472710882FD33156CA67B9E2E30";
                 StringSelection stringSelection2 = new StringSelection(message2);
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -180,14 +192,13 @@ class SimpleGUI extends JFrame {
                         message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=1&plan=1&paidPackage=1952.2&trialPackage=101.1";
                     } else if (comboBox10.getSelectedItem().toString() == "Fax 1500") {
                         message = comboBox.getSelectedItem() + "/fax-v1.0/?offerType=0&plan=15";
-                    }else if (comboBox10.getSelectedItem().toString() == "NGEX Paid") {
+                    } else if (comboBox10.getSelectedItem().toString() == "NGEX Paid") {
                         message = comboBox.getSelectedItem() + "/mvp/?offerType=0&plan=1&paidPackage=1952.2";
-                    }else if (comboBox10.getSelectedItem().toString() == "NGEX Trial 14 days") {
+                    } else if (comboBox10.getSelectedItem().toString() == "NGEX Trial 14 days") {
                         message = comboBox.getSelectedItem() + "/mvp/?offerType=1&plan=1&paidPackage=1952.2&trialPackage=101.1";
-                    }
-                    else if (comboBox10.getSelectedItem().toString() == "NGEX with devices") {
+                    } else if (comboBox10.getSelectedItem().toString() == "NGEX with devices") {
                         message = comboBox.getSelectedItem() + "/mvp/?offerType=1&plan=1&apple=1&dv=1";
-                    }else {
+                    } else {
                         JOptionPane.showMessageDialog(null, "Please select Plan", "Error", JOptionPane.PLAIN_MESSAGE);
                     }
                     break;
@@ -370,9 +381,6 @@ class SimpleGUI extends JFrame {
                 case "SWT-UP-AMS":
                     mess = "https://service-swtupams-us.secure.lab.nordigy.ru/salesagent_v5/signup/emulator-v2/";
                     break;
-                case "COOCIES_ON_PREPROD/PROD":
-                    mess = "(function(){document.cookie='cnvr_fcf_ignore_closed_sf_record=any;path=/;';})();";
-                    break;
             }
             StringSelection stringSelection = new StringSelection(mess);
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -512,11 +520,33 @@ class SimpleGUI extends JFrame {
         }
     }
 
+    private String[] getSortList(String[] strings) {
+        Arrays.sort(strings, 1, strings.length);
+        return strings.clone();
+    }
+
     class ButtonEventListener2 implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             int number = rnd.nextInt(99999999);
             String message2 = comboBox3.getSelectedItem() + "+" + number + "@stressmailams.lab.nordigy.ru";
             StringSelection stringSelection2 = new StringSelection(message2);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection2, null);
+
+        }
+    }
+
+    class ButtonEventListener777 implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            String massage = null;
+            if (checkBox2.isSelected()) {
+                massage = "(function(){document.cookie='cnvr_fcf_ignore_closed_sf_record=any;path=/;';})();";
+            } else if (checkBox.isSelected()) {
+                massage = "(function(){document.cookie='mock_AttBilling_checkPhoneNumber=success';})();";
+            }else {
+                JOptionPane.showMessageDialog(null, "Please first select one of the checkboxes cookie", "Error", JOptionPane.PLAIN_MESSAGE);
+            }
+            StringSelection stringSelection2 = new StringSelection(massage);
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             clipboard.setContents(stringSelection2, null);
 

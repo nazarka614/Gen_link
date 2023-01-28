@@ -156,6 +156,7 @@ class SimpleGUI extends JFrame {
                 case "TELEKOM":
                 case "FEDRAMP":
                 case "TELUS":
+                case "ATT":
                 case "CharterSMB":
                     updateList2(listEntry.getNoEntry());
                     break;
@@ -270,6 +271,7 @@ class SimpleGUI extends JFrame {
                 case "RAINBOW":
                 case "ATOS":
                 case "AVAYA":
+                case "ATT":
                     JOptionPane.showMessageDialog(null, "Please use Sales agent from app", "Massage", JOptionPane.PLAIN_MESSAGE);
                     break;
                 case "Select brand":

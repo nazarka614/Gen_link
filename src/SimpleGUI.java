@@ -1,9 +1,12 @@
 import javax.swing.*;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +27,8 @@ class SimpleGUI extends JFrame {
     private JComboBox<String> comboBox8 = new JComboBox<>(getSortList(listData.getInfoPages()));
     private JComboBox<String> comboBox9 = new JComboBox<>(listData.getSalesAgent());
     private JComboBox<String> comboBox10 = new JComboBox<>(listEntry.getSelectPlan());
+    Font font = new Font("Arial", Font.ITALIC, 12);
+    String placeholder = "Enter account ID";
 
     private JButton button2 = new JButton("Generate unique stressmail");
     private JButton button3 = new JButton("Generate unique ab-soft");
@@ -36,20 +41,51 @@ class SimpleGUI extends JFrame {
     private JButton button10 = new JButton("City");
     private JButton button11 = new JButton("Zip code");
     private JButton button12 = new JButton("Copy entry link");
-    private JTextField input = new JTextField("", 6);
+    public JTextField input = new JTextField(placeholder, 6);
+
     private JCheckBox checkBox = new JCheckBox("Cookies for valid number ATT SA", false);
     private JCheckBox checkBox2 = new JCheckBox("Magic sales cookies for prod");
     private JButton button120 = new JButton("Copy cookies");
 
     public SimpleGUI() {
+
         super("BuildLink");
         this.setBounds(100, 100, 1100, 250);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         button4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 input.setText(null);
+                input.requestFocusInWindow();
             }
         });
+        input.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (!((character >= '0') && (character <= '9'))) {
+                    e.consume();
+                }
+            }
+        });
+        input.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                // Удаляем плейсхолдер при получении фокуса
+                if (input.getText().equals(placeholder)) {
+                    input.setText("");
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                // Восстанавливаем плейсхолдер при потере фокуса, если текстовое поле пустое
+                if (input.getText().isEmpty()) {
+                    input.setText(placeholder);
+                    input.setFont(font);
+                }
+            }
+        });
+        button4.addActionListener(e -> input.setText(placeholder));
         Container container = this.getContentPane();
         container.setLayout(new GridLayout(5, 2, 5, 6));
         container.add(comboBox2);
@@ -60,6 +96,8 @@ class SimpleGUI extends JFrame {
         container.add(button2);
         container.add(comboBox3);
         container.add(input);
+        input.setText(placeholder);
+        input.setFont(font);
         container.add(button);
         button.setBackground(Color.ORANGE);
         container.add(button5);
@@ -118,7 +156,10 @@ class SimpleGUI extends JFrame {
                 JOptionPane.showMessageDialog(null, "Please enter your ID", "Error", JOptionPane.PLAIN_MESSAGE);
             } else if (comboBox2.getSelectedItem() == "Select brand") {
                 JOptionPane.showMessageDialog(null, "Please select Brand", "Error", JOptionPane.PLAIN_MESSAGE);
-            } else {
+            } else if(input.getText().equals(placeholder)){
+                JOptionPane.showMessageDialog(null, "Please enter your ID", "Error", JOptionPane.PLAIN_MESSAGE);
+            }
+            else {
                 String message2 = comboBox.getSelectedItem() + "/rc-web/confirmation/default.html?" + input.getText().replaceAll(" ", "") + ":2BDE2472710882FD33156CA67B9E2E30";
                 StringSelection stringSelection2 = new StringSelection(message2);
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();

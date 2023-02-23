@@ -160,7 +160,7 @@ class SimpleGUI extends JFrame {
                 JOptionPane.showMessageDialog(null, "Please enter your ID", "Error", JOptionPane.PLAIN_MESSAGE);
             }
             else {
-                String message2 = comboBox.getSelectedItem() + "/rc-web/confirmation/default.html?" + input.getText().replaceAll(" ", "") + ":2BDE2472710882FD33156CA67B9E2E30";
+                String message2 = comboBox.getSelectedItem() + "/rc-web/confirmation/default.html?" + input.getText().replaceAll("[^0-9]", "") + ":2BDE2472710882FD33156CA67B9E2E30";
                 StringSelection stringSelection2 = new StringSelection(message2);
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(stringSelection2, null);

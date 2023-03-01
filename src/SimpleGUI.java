@@ -1,15 +1,10 @@
 import javax.swing.*;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 class SimpleGUI extends JFrame {
@@ -41,6 +36,9 @@ class SimpleGUI extends JFrame {
     private JButton button10 = new JButton("City");
     private JButton button11 = new JButton("Zip code");
     private JButton button12 = new JButton("Copy entry link");
+    private JButton button15 = new JButton("Open activation link in Chrome");
+    private JButton button16 = new JButton("Open entry link in Chrome");
+    private JButton button17 = new JButton("Open QA Tool link in Chrome");
     public JTextField input = new JTextField(placeholder, 6);
 
     private JCheckBox checkBox = new JCheckBox("Cookies for valid number ATT SA", false);
@@ -85,50 +83,71 @@ class SimpleGUI extends JFrame {
                 }
             }
         });
-        button4.addActionListener(e -> input.setText(placeholder));
-        Container container = this.getContentPane();
-        container.setLayout(new GridLayout(5, 2, 5, 6));
-        container.add(comboBox2);
+        // Создание вкладок
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        JPanel panel1 = new JPanel();
+        panel1.setLayout(new GridLayout(4, 3, 6, 7));
+        panel1.add(comboBox2);
         comboBox2.setBackground(Color.ORANGE);
-        container.add(comboBox);
+        panel1.add(comboBox);
         comboBox.setBackground(Color.ORANGE);
-        container.add(button6);
-        container.add(button2);
-        container.add(comboBox3);
-        container.add(input);
+        panel1.add(button15);
+        panel1.add(input);
+        panel1.add(button);
+        panel1.add(button16);
         input.setText(placeholder);
         input.setFont(font);
-        container.add(button);
+        panel1.add(button6);
         button.setBackground(Color.ORANGE);
-        container.add(button5);
-        container.add(button3);
-        container.add(button4);
+        panel1.add(button5);
+        panel1.add(button17);
+        panel1.add(comboBox10);
         button4.setBackground(Color.pink);
-        container.add(comboBox5);
-        container.add(button7);
-        container.add(button8);
-        container.add(button10);
-        container.add(button11);
-        container.add(comboBox4);
-        comboBox4.setBackground(Color.LIGHT_GRAY);
-        container.add(comboBox6);
-        comboBox6.setBackground(Color.LIGHT_GRAY);
-        container.add(comboBox7);
-        comboBox7.setBackground(Color.LIGHT_GRAY);
-        container.add(comboBox8);
-        comboBox8.setBackground(Color.LIGHT_GRAY);
-        container.add(comboBox9);
-        comboBox9.setBackground(Color.LIGHT_GRAY);
-        container.add(comboBox10);
+        panel1.add(button12);
         comboBox10.setBackground(Color.ORANGE);
-        container.add(button12);
+        panel1.add(button4);
         button12.setBackground(Color.ORANGE);
+
+
+        JPanel panel2 = new JPanel();
+        panel2.setLayout(new GridLayout(5, 2, 5, 6));
+        panel2.add(comboBox4);
+        comboBox4.setBackground(Color.LIGHT_GRAY);
+        panel2.add(comboBox6);
+        comboBox6.setBackground(Color.LIGHT_GRAY);
+        panel2.add(button2);
+        panel2.add(comboBox3);
+        panel2.add(comboBox7);
+        comboBox7.setBackground(Color.LIGHT_GRAY);
+        panel2.add(comboBox8);
+        comboBox8.setBackground(Color.LIGHT_GRAY);
+        panel2.add(button3);
+        panel2.add(comboBox5);
+        panel2.add(button8);
+        panel2.add(button10);
+        panel2.add(button11);
+        panel2.add(button7);
+        panel2.add(comboBox9);
+        comboBox9.setBackground(Color.LIGHT_GRAY);
+
+
         ButtonGroup group = new ButtonGroup();
         group.add(checkBox);
         group.add(checkBox2);
-        container.add(checkBox);
-        container.add(checkBox2);
-        container.add(button120);
+        panel2.add(checkBox);
+        panel2.add(checkBox2);
+        panel2.add(button120);
+
+        // Добавление вкладок на панель
+        tabbedPane.addTab("Generate link", panel1);
+        tabbedPane.addTab("Generate address", panel2);
+
+        // Добавление панели в окно
+        Container container = this.getContentPane();
+        container.add(tabbedPane);
+
+        // Добавление обработчиков событий для компонентов
         comboBox2.addActionListener(new Combo());
         comboBox4.addActionListener(new Combo1());
         comboBox6.addActionListener(new Combo2());
@@ -147,8 +166,156 @@ class SimpleGUI extends JFrame {
         button11.addActionListener(new ButtonEventListener10());
         button12.addActionListener(new ButtonEventListener12());
         button120.addActionListener(new ButtonEventListener777());
+        button15.addActionListener(new ButtonEventListener15());
+        button16.addActionListener(new ButtonEventListener16());
+        button17.addActionListener(new ButtonEventListener17());
+    }
+    class ButtonEventListener17 implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+
+            if (comboBox.getSelectedItem().equals("First select Brands")) {
+                JOptionPane.showMessageDialog(null, "Select domain and brands", "Error", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                String message4 = comboBox.getSelectedItem() + "/web/setup/qa.html";
+                try {
+                    String[] command = {"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", "--incognito", "--start-maximized", message4};
+                    Runtime.getRuntime().exec(command);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
+    class ButtonEventListener16 implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+
+
+            String message = "";
+            String brands = comboBox2.getSelectedItem().toString();
+            switch (brands) {
+                case "US":
+                    if (comboBox10.getSelectedItem().toString() == "Buy plan entry points Office 7.0") {
+                        message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=0&plan=1&paidPackage=1952.2";
+                    } else if (comboBox10.getSelectedItem().toString() == "Trial 15 days plan entry points") {
+                        message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=1&plan=1&paidPackage=1952.2&trialPackage=101.1";
+                    } else if (comboBox10.getSelectedItem().toString() == "Fax 1500") {
+                        message = comboBox.getSelectedItem() + "/fax-v1.0/?offerType=0&plan=15";
+                    } else if (comboBox10.getSelectedItem().toString() == "NGEX Paid") {
+                        message = comboBox.getSelectedItem() + "/mvp/?offerType=0&plan=1&paidPackage=1952.2";
+                    } else if (comboBox10.getSelectedItem().toString() == "NGEX Trial 14 days") {
+                        message = comboBox.getSelectedItem() + "/mvp/?offerType=1&plan=1&paidPackage=1952.2&trialPackage=101.1";
+                    } else if (comboBox10.getSelectedItem().toString() == "NGEX with devices") {
+                        message = comboBox.getSelectedItem() + "/mvp/?offerType=1&plan=1&apple=1&dv=1";
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please select Plan", "Error", JOptionPane.PLAIN_MESSAGE);
+                    }
+                    break;
+                case "CA":
+                    if (comboBox10.getSelectedItem().toString() == "Buy plan entry points Office 7.0") {
+                        message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=0&plan=1&paidPackage=1961.1";
+                    } else if (comboBox10.getSelectedItem().toString() == "Trial 15 days plan entry points") {
+                        message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=1&plan=1&paidPackage=1961.1&trialPackage=121.1";
+                    } else if (comboBox10.getSelectedItem().toString() == "Fax 1500") {
+                        message = comboBox.getSelectedItem() + "/fax-v1.0/?offerType=0&plan=15";
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please select Plan", "Error", JOptionPane.PLAIN_MESSAGE);
+                    }
+                    break;
+                case "VERIZON":
+                case "EASTLINK":
+                case "MCM":
+                case "Charter":
+                case "ECOTEL":
+                case "FRONTIER":
+                case "DT_ATOS":
+                case "VERSATEL":
+                case "SUNRISE":
+                case "VODAFONE":
+                case "TELEKOM":
+                case "FEDRAMP":
+                case "TELUS":
+                case "CharterSMB":
+                    JOptionPane.showMessageDialog(null, "App not support please use Postman", "App not support", JOptionPane.PLAIN_MESSAGE);
+                    break;
+                case "BT":
+                    message = "https://test-bt.lab.nordigy.ru/test.html";
+                    break;
+                case "EU":
+                    if (comboBox10.getSelectedItem().toString() == "Buy plan entry points Office 7.0 nl") {
+                        message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=0&plan=1&country=nl";
+                    } else if (comboBox10.getSelectedItem().toString() == "Trial 15 days plan entry nl") {
+                        message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=1&plan=1&country=nl";
+                    } else if (comboBox10.getSelectedItem().toString() == "Buy plan entry points fr") {
+                        message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=0&plan=1&country=fr";
+                    } else if (comboBox10.getSelectedItem().toString() == "Trial 15 days plan entry fr") {
+                        message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=1&plan=1&country=fr";
+                    } else if (comboBox10.getSelectedItem().toString() == "Buy plan entry points ie") {
+                        message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=0&plan=1&country=nl";
+                    } else if (comboBox10.getSelectedItem().toString() == "Trial 15 days plan entry ie") {
+                        message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=1&plan=1&country=ie";
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please select Plan", "Error", JOptionPane.PLAIN_MESSAGE);
+                    }
+                    break;
+                case "AU":
+                    if (comboBox10.getSelectedItem().toString() == "Buy plan entry points Office 7.0") {
+                        message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=0&plan=1&paidPackage=1983.1";
+                    } else if (comboBox10.getSelectedItem().toString() == "Trial 15 days plan entry") {
+                        message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=1&plan=1&paidPackage=1983.1&trialPackage=141.1";
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please select Plan", "Error", JOptionPane.PLAIN_MESSAGE);
+                    }
+                    break;
+                case "UK":
+                    if (comboBox10.getSelectedItem().toString() == "Buy plan entry points Office 7.0") {
+                        message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=0&plan=1&paidPackage=1969.1";
+                    } else if (comboBox10.getSelectedItem().toString() == "Trial 15 days plan entry") {
+                        message = comboBox.getSelectedItem() + "/office-v7.0/?offerType=1&plan=1&paidPackage=1969.1&trialPackage=181.1";
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please select Plan", "Error", JOptionPane.PLAIN_MESSAGE);
+                    }
+                    break;
+                case "RAINBOW":
+                case "ATOS":
+                case "AVAYA":
+                case "ATT":
+                    JOptionPane.showMessageDialog(null, "Please use Sales agent from app", "Massage", JOptionPane.PLAIN_MESSAGE);
+                    break;
+                case "Select brand":
+                    JOptionPane.showMessageDialog(null, "Please select brand", "Error", JOptionPane.PLAIN_MESSAGE);
+                    break;
+            }if (!message.equals("")) {
+                try {
+                    String[] command = {"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", "--incognito", "--start-maximized", message};
+                    Runtime.getRuntime().exec(command);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
     }
 
+    class ButtonEventListener15 implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+
+            if (input.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Please enter your ID", "Error", JOptionPane.PLAIN_MESSAGE);
+            } else if (comboBox2.getSelectedItem() == "Select brand") {
+                JOptionPane.showMessageDialog(null, "Please select Brand", "Error", JOptionPane.PLAIN_MESSAGE);
+            } else if(input.getText().equals(placeholder)){
+                JOptionPane.showMessageDialog(null, "Please enter your ID", "Error", JOptionPane.PLAIN_MESSAGE);
+            }
+            else {
+                String message2 = comboBox.getSelectedItem() + "/rc-web/confirmation/default.html?" + input.getText().replaceAll("[^0-9]", "") + ":2BDE2472710882FD33156CA67B9E2E30";
+                try {
+                    String[] command = {"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", "--incognito", "--start-maximized", message2};
+                    Runtime.getRuntime().exec(command);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
     class ActtionButton implements ActionListener {
         public void actionPerformed(ActionEvent e) {
 

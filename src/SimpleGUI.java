@@ -4,7 +4,10 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 class SimpleGUI extends JFrame {
@@ -23,7 +26,7 @@ class SimpleGUI extends JFrame {
     private JComboBox<String> comboBox9 = new JComboBox<>(listData.getSalesAgent());
     private JComboBox<String> comboBox10 = new JComboBox<>(listEntry.getSelectPlan());
     Font font = new Font("Arial", Font.ITALIC, 12);
-    String placeholder = "Enter account ID";
+    String placeholder = "Enter account ID or Activation link";
 
     private JButton button2 = new JButton("Generate unique stressmail");
     private JButton button3 = new JButton("Generate unique ab-soft");
@@ -56,15 +59,15 @@ class SimpleGUI extends JFrame {
                 input.requestFocusInWindow();
             }
         });
-        input.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char character = e.getKeyChar();
-                if (!((character >= '0') && (character <= '9'))) {
-                    e.consume();
-                }
-            }
-        });
+//        input.addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyTyped(KeyEvent e) {
+//                char character = e.getKeyChar();
+//                if (!((character >= '0') && (character <= '9'))) {
+//                    e.consume();
+//                }
+//            }
+//        });
         input.addFocusListener(new FocusListener() {
 
             @Override
@@ -325,6 +328,11 @@ class SimpleGUI extends JFrame {
                 JOptionPane.showMessageDialog(null, "Please select Brand", "Error", JOptionPane.PLAIN_MESSAGE);
             } else if(input.getText().equals(placeholder)){
                 JOptionPane.showMessageDialog(null, "Please enter your ID", "Error", JOptionPane.PLAIN_MESSAGE);
+            }else if(isValidUrl(input.getText())){
+                String message2 = comboBox.getSelectedItem() + "/rc-web/confirmation/default.html?" + extractUrlParameter(input.getText(),"mid") + ":2BDE2472710882FD33156CA67B9E2E30";
+                StringSelection stringSelection2 = new StringSelection(message2);
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(stringSelection2, null);
             }
             else {
                 String message2 = comboBox.getSelectedItem() + "/rc-web/confirmation/default.html?" + input.getText().replaceAll("[^0-9]", "") + ":2BDE2472710882FD33156CA67B9E2E30";
@@ -337,6 +345,15 @@ class SimpleGUI extends JFrame {
         public boolean equals(Object object) {
             JTextField jTextField = (JTextField) object;
             return input.getText() == jTextField.getText();
+        }
+    }
+
+    public static boolean isValidUrl(String text) {
+        try {
+            new URL(text);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 
@@ -721,6 +738,30 @@ class SimpleGUI extends JFrame {
         for (String item : items) {
             comboBox.addItem(item);
         }
+    }
+
+    public static String extractUrlParameter(String urlString, String paramName) {
+        String paramValue = "";
+        try {
+            URL url = new URL(urlString);
+            String[] params = url.getQuery().split("&");
+            Map<String, String> paramMap = new HashMap<>();
+
+            for (String param : params) {
+                String[] parts = param.split("=");
+                if (parts.length > 1) {
+                    paramMap.put(parts[0], parts[1]);
+                }
+            }
+
+            if (paramMap.containsKey(paramName)) {
+                paramValue = paramMap.get(paramName);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return paramValue;
     }
 
     private void updateList2(String[] items2) {

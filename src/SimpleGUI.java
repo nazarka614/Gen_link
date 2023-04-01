@@ -553,9 +553,9 @@ class SimpleGUI extends JFrame {
                 case "VERIZON":
                     updateList(listHost.getHostsVERIZON());
                     break;
-                case "EASTLINK":
-                    updateList(listHost.getHostsEASTLINK());
-                    break;
+//                case "EASTLINK":
+//                    updateList(listHost.getHostsEASTLINK());
+//                    break;
                 case "MCM":
                     updateList(listHost.getHostsMCM());
                     break;
@@ -571,9 +571,9 @@ class SimpleGUI extends JFrame {
                 case "VERSATEL":
                     updateList(listHost.getHostsVERSATEL());
                     break;
-                case "SUNRISE":
-                    updateList(listHost.getHostsSUNRISE());
-                    break;
+//                case "SUNRISE":
+////                    updateList(listHost.getHostsSUNRISE());
+////                    break;
                 case "VODAFONE":
                     updateList(listHost.getHostsVODAFONE());
                     break;

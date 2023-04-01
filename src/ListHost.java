@@ -135,22 +135,23 @@ public class ListHost {
                 "https://secure.verizon.ringcentral.biz",
                 "https://secure-verizon.uat.ringcentral.com",
                 "https://secure-ve01-ol.lab.nordigy.ru",
+                "https://stage301-verizon.secure.ringcentral.com",
                 "https://service-devgwsams-verizon.secure.lab.nordigy.ru",
                 "https://service-amrupams-verizon.secure.lab.nordigy.ru",
                 "https://service-devgw2ams-verizon.secure.lab.nordigy.ru",
         };
     }
 
-    public String[] getHostsEASTLINK() {
-        return new String[]{
-                "https://secure.eastlink.ringcentral.com",
-                "https://secure-el01-ol.lab.nordigy.ru",
-                "https://secure-eastlink.uat.ringcentral.com",
-                "https://service-devgwsams-eastlink.secure.lab.nordigy.ru",
-                "https://service-amrupams-eastlink.secure.lab.nordigy.ru",
-                "https://service-devgw2ams-eastlink.secure.lab.nordigy.ru",
-        };
-    }
+//    public String[] getHostsEASTLINK() {
+//        return new String[]{
+//                "https://secure.eastlink.ringcentral.com",
+//                "https://secure-el01-ol.lab.nordigy.ru",
+//                "https://secure-eastlink.uat.ringcentral.com",
+//                "https://service-devgwsams-eastlink.secure.lab.nordigy.ru",
+//                "https://service-amrupams-eastlink.secure.lab.nordigy.ru",
+//                "https://service-devgw2ams-eastlink.secure.lab.nordigy.ru",
+//        };
+//    }
 
     public String[] getHostsMCM() {
         return new String[]{
@@ -168,6 +169,7 @@ public class ListHost {
                 "https://secure.ecotel.ringcentral.com",
                 "https://secure-ec01-ol.lab.nordigy.ru",
                 "https://secure-ecotel.eurouat.ringcentral.com",
+                "https://stage301-ecotel.secure.ringcentral.com",
                 "https://service-devgwsams-ecotel.secure.lab.nordigy.ru",
                 "https://service-amrupams-ecotel.secure.lab.nordigy.ru",
                 "https://service-devgw2ams-ecotel.secure.lab.nordigy.ru",
@@ -198,6 +200,7 @@ public class ListHost {
         return new String[]{
                 "http://secure.telekom.ringcentral.com",
                 "https://secure-telekom.eurouat.ringcentral.com",
+                "https://stage301-telekom.secure.ringcentral.com",
                 "https://service-devgwsams-telekom.secure.lab.nordigy.ru",
                 "https://service-amrupams-telekom.secure.lab.nordigy.ru",
                 "https://service-devgw2ams-telekom.secure.lab.nordigy.ru",
@@ -214,20 +217,20 @@ public class ListHost {
         };
     }
 
-    public String[] getHostsSUNRISE() {
-        return new String[]{
-                "http://secure.sunrise.ringcentral.com",
-                "https://secure-sunrise.eurouat.ringcentral.com",
-                "https://service-devgwsams-sunrise.secure.lab.nordigy.ru",
-                "https://service-amrupams-sunrise.secure.lab.nordigy.ru",
-                "https://service-devgw2ams-sunrise.secure.lab.nordigy.ru",
-        };
-    }
+//    public String[] getHostsSUNRISE() {
+//        return new String[]{
+//                "http://secure.sunrise.ringcentral.com",
+//                "https://secure-sunrise.eurouat.ringcentral.com",
+//                "https://service-devgwsams-sunrise.secure.lab.nordigy.ru",
+//                "https://service-amrupams-sunrise.secure.lab.nordigy.ru",
+//                "https://service-devgw2ams-sunrise.secure.lab.nordigy.ru",
+//        };
+//    }
 
     public String[] getHostsFEDRAMP() {
         return new String[]{
                 "https://service-devgwsams-fedramp.secure.lab.nordigy.ru",
-                "https://service-amrupams-fedramp.secure.lab.nordigy.ru",
+                "https://service-amrattams-fedramp.secure.lab.nordigy.ru",
                 "https://service-devgw2ams-fedramp.secure.lab.nordigy.ru",
                 "https://secure-fd01-ol.lab.nordigy.ru",
         };
@@ -236,7 +239,7 @@ public class ListHost {
     public String[] getHostsVODAFONE() {
         return new String[]{
                 "https://secure.vodafonebusiness.ringcentral.com",
-                "https://secure-vodafonebusiness.eurouat.ringcentral.com/",
+                "https://secure-vodafonebusiness.eurouat.ringcentral.com",
                 "https://service-devgwsams-vodafone.secure.lab.nordigy.ru",
                 "https://service-amrupams-vodafone.secure.lab.nordigy.ru",
                 "https://service-devgw2ams-vodafone.secure.lab.nordigy.ru",

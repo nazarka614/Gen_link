@@ -3,12 +3,18 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 class SimpleGUI extends JFrame {
     Random rnd = new Random();
@@ -25,6 +31,7 @@ class SimpleGUI extends JFrame {
     private JComboBox<String> comboBox8 = new JComboBox<>(getSortList(listData.getInfoPages()));
     private JComboBox<String> comboBox9 = new JComboBox<>(listData.getSalesAgent());
     private JComboBox<String> comboBox10 = new JComboBox<>(listEntry.getSelectPlan());
+    private JComboBox<String> comboBox12 = new JComboBox<>(listData.getEnvForAuto());
     Font font = new Font("Arial", Font.ITALIC, 12);
     String placeholder = "Enter account ID or Activation link";
 
@@ -47,6 +54,7 @@ class SimpleGUI extends JFrame {
     private JCheckBox checkBox = new JCheckBox("Cookies for valid number ATT SA", false);
     private JCheckBox checkBox2 = new JCheckBox("Magic sales cookies for prod");
     private JButton button120 = new JButton("Copy cookies");
+    private JButton button35 = new JButton("Activate ENV");
 
     public SimpleGUI() {
 
@@ -142,9 +150,15 @@ class SimpleGUI extends JFrame {
         panel2.add(checkBox2);
         panel2.add(button120);
 
+        JPanel panel3 = new JPanel();
+        panel2.setLayout(new GridLayout(2, 2, 5, 6));
+        panel3.add(comboBox12);
+        panel3.add(button35);
+
         // Добавление вкладок на панель
         tabbedPane.addTab("Generate link", panel1);
         tabbedPane.addTab("Generate address", panel2);
+        tabbedPane.addTab("Automation", panel3);
 
         // Добавление панели в окно
         Container container = this.getContentPane();
@@ -172,6 +186,64 @@ class SimpleGUI extends JFrame {
         button15.addActionListener(new ButtonEventListener15());
         button16.addActionListener(new ButtonEventListener16());
         button17.addActionListener(new ButtonEventListener17());
+        button35.addActionListener(new ButtonEventListener35());
+    }
+
+    class ButtonEventListener35 implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+
+            if (comboBox12.getSelectedItem().equals("DEV-GWS-AMS")){
+                updateAutoFile("conf_url = AMR_UP_AMS","#conf_url = AMR_UP_AMS");
+                updateAutoFile("conf_url = DEV_GW2","#conf_url = DEV_GW2");
+                updateAutoFile("#conf_url = DEV_GWS","conf_url = DEV_GWS");
+
+                updateAutoFile("url = AMR_UP_AMS","#url = AMR_UP_AMS");
+                updateAutoFile("url = DEV_GW2","#url = DEV_GW2");
+                updateAutoFile("#url = DEV_GWS","url = DEV_GWS");
+            }else if (comboBox12.getSelectedItem().equals("AMR-UP-AMS")){
+                updateAutoFile("#conf_url = AMR_UP_AMS","conf_url = AMR_UP_AMS");
+                updateAutoFile("conf_url = DEV_GW2","#conf_url = DEV_GW2");
+                updateAutoFile("conf_url = DEV_GWS","#conf_url = DEV_GWS");
+
+                updateAutoFile("#url = AMR_UP_AMS","url = AMR_UP_AMS");
+                updateAutoFile("url = DEV_GW2","#url = DEV_GW2");
+                updateAutoFile("url = DEV_GWS","#url = DEV_GWS");
+            }else if (comboBox12.getSelectedItem().equals("DEV-GW2-AMS")){
+                updateAutoFile("conf_url = AMR_UP_AMS","#conf_url = AMR_UP_AMS");
+                updateAutoFile("#conf_url = DEV_GW2","conf_url = DEV_GW2");
+                updateAutoFile("conf_url = DEV_GWS","#conf_url = DEV_GWS");
+
+                updateAutoFile("url = AMR_UP_AMS","#url = AMR_UP_AMS");
+                updateAutoFile("#url = DEV_GW2","url = DEV_GW2");
+                updateAutoFile("url = DEV_GWS","#url = DEV_GWS");
+            }
+        }
+    }
+
+    public static void updateAutoFile(String oldENV, String newEnv){
+        String fileName = "C:\\Users\\nazar\\Automation\\automation.ini";
+        Path filePath = Paths.get(fileName);
+        try {
+            // Считываем содержимое файла в список строк
+            List<String> fileContent = Files.lines(filePath).collect(Collectors.toList());
+
+            // Заменяем строку oldValue на newValue
+            for (int i = 0; i < fileContent.size(); i++) {
+                if (fileContent.get(i).equals(oldENV)) {
+                    fileContent.set(i, newEnv);
+                    break;
+                }
+            }
+
+            // Записываем изменения обратно в файл
+            FileWriter writer = new FileWriter(fileName);
+            for (String line : fileContent) {
+                writer.write(line + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Ошибка при чтении/записи файла: " + e.getMessage());
+        }
     }
     class ButtonEventListener17 implements ActionListener {
         public void actionPerformed(ActionEvent e) {

@@ -9,6 +9,14 @@ public class ListData{
                 "SWT-UP-AMS",
         };
     }
+    public String[] getEnvForAuto() {
+        return new String[]{
+                "DEV-GWS-AMS",
+                "AMR-UP-AMS",
+                "DEV-GW2-AMS",
+        };
+    }
+
 
     public String[] getlistSelect() {
         return new String[]{
